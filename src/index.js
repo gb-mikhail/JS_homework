@@ -10,6 +10,19 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
+    if (array.constructor != Array || array.length === 0) {
+        throw new Error("empty array");
+    }
+    if (typeof fn != "function") {
+        throw new Error("fn is not a function");
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        if (!fn(array[i])) {
+            return false;
+        }
+    }
+    return true;
 }
 
 /*
@@ -22,8 +35,20 @@ function isAllTrue(array, fn) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
-}
+    if (array.constructor != Array || array.length === 0) {
+        throw new Error("empty array");
+    }
+    if (typeof fn != "function") {
+        throw new Error("fn is not a function");
+    }
 
+    for (var i = 0; i < array.length; i++) {
+        if (!fn(array[i])) {
+            return true;
+        }
+    }
+    return true;
+}
 /*
  Задача 3:
  Функция принимает заранее неизветсное количество аргументов, первым из которых является функция fn
@@ -32,7 +57,21 @@ function isSomeTrue(array, fn) {
  Необходимо выбрасывать исключение в случаях:
  - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn) {
+function returnBadArguments(fn, ...arg) {
+    if (typeof fn != "function") {
+        throw new Error("fn is not a function");
+    }
+    try {
+        var a = [];
+        for (var i = 0; i < arg.length; i++) {
+            if (!fn(arg[i])) {
+                a.push(arg[i]);
+            }
+        }
+        return a;
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 /*
@@ -49,7 +88,53 @@ function returnBadArguments(fn) {
  - number не является числом (с текстом "number is not a number")
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
+function calculator(number = 0) {
+    if (typeof number !== "number") {
+        throw new Error("number is not a number");
+    }
+
+    try {
+        var calc = {
+            num: number,
+            sum: function (...arg) {
+                var sum = this.num;
+                for (var i = 0; i < arg.length; i++) {
+                    sum += arg[i];
+                }
+                return sum;
+            },
+            dif: function (...arg) {
+
+                var dif = this.num;
+                for (var i = 0; i < arg.length; i++) {
+                    dif = dif - arg[i];
+                }
+                return dif;
+            },
+            div: function (...arg) {
+
+                var div = this.num;
+                for (var i = 0; i < arg.length; i++) {
+                    if (arg[i] === 0) {
+                        throw new Error("division by 0");
+                    }
+                    div = div / arg[i];
+                }
+                return div;
+            },
+            mul: function (...arg) {
+
+                var mul = this.num;
+                for (var i = 0; i < arg.length; i++) {
+                    mul = mul * arg[i];
+                }
+                return mul;
+            }
+        };
+        return calc;
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 export {
