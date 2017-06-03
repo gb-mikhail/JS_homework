@@ -36,6 +36,7 @@ let homeworkContainer = document.querySelector('#homework-container');
  * @return {Promise<Array<{name: string}>>}
  */
 function loadTowns() {
+    return require('./index').loadAndSortTowns();
 }
 
 /**
@@ -52,17 +53,71 @@ function loadTowns() {
  * @return {boolean}
  */
 function isMatching(full, chunk) {
+    if (full.toLowerCase().indexOf(chunk.toLowerCase()) + 1) {
+        return true
+    }
+    return false;
 }
 
 let loadingBlock = homeworkContainer.querySelector('#loading-block');
 let filterBlock = homeworkContainer.querySelector('#filter-block');
 let filterInput = homeworkContainer.querySelector('#filter-input');
 let filterResult = homeworkContainer.querySelector('#filter-result');
-let townsPromise;
 
-filterInput.addEventListener('keyup', function() {
+
+homeworkContainer.appendChild(filterInput);
+homeworkContainer.appendChild(loadingBlock);
+homeworkContainer.appendChild(filterResult);
+homeworkContainer.appendChild(filterBlock);
+
+function createList(value) {
+    filterResult.innerHTML = "";
+    filterBlock.innerHTML = "";
+    var loadtowns = loadTowns();
+
+    loadtowns.then(function (result) {
+
+            var cityList = result;
+            var ul = document.createElement("ul");
+
+            for (var i = 0; i < cityList.length; i++) {
+                if (isMatching(cityList[i].name, value)) {
+                    var div = document.createElement("div");
+                    div.innerHTML = cityList[i].name;
+                    filterResult.appendChild(div);
+                }
+            }
+
+            loadingBlock.remove();
+        },
+
+        function (value) {
+            filterResult.innerHTML = "";
+            filterBlock.innerHTML = "";
+            loadingBlock.innerText = "Не удалось загрузить города";
+            var button = document.createElement('button');
+            button.innerText = "Повторить";
+            filterResult.appendChild(button);
+            button.addEventListener('click', function () {
+                return createList(value);
+            })
+        })
+}
+
+filterInput.addEventListener('keyup', function (e) {
+
+    loadingBlock.innerText = "Загрузка";
+    var target = e.target;
+    var value = target.value;
+    if (value == "") {
+        filterResult.innerHTML = "";
+        filterBlock.innerHTML = "";
+    }
+    else {
+        createList(value);
+    }
+
 });
-
 export {
     loadTowns,
     isMatching
