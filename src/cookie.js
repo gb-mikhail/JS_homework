@@ -39,9 +39,92 @@ let addValueInput = homeworkContainer.querySelector('#add-value-input');
 let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
+function isMatching(full, chunk) {
+    if (chunk == '') {
+        return true;
+    }
+    if (~full.toLowerCase().indexOf(chunk.toLowerCase())) {
+        return true;
+    }
+
+    return false;
+}
+
+function getCookiesMassiv() {
+    var c = document.cookie;
+    var cookies = c.split('; ');
+    var massivCookies = [],
+        indexMassiv = 0;
+
+    for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i]) {
+            var [name, value] = cookies[i].split('=');
+
+            massivCookies[indexMassiv] = {name: name, value: value};
+            ++indexMassiv;
+        }
+
+    }
+
+    return massivCookies;
+}
+function clearTable() {
+    for (var curNode = listTable.firstChild; curNode != null;) {
+        var nextNode = curNode.nextSibling;
+
+        listTable.removeChild(curNode);
+        curNode = nextNode;
+    }
+}
+function deleteCookie(name) {
+    var d = new Date();
+
+    d.setTime(d.getTime() - 1000);
+    document.cookie = name + '=;expires=' + d.toUTCString();
+}
+function fillTable(filter) {
+    var massivCookies = getCookiesMassiv();
+
+    for (var i = 0; i < massivCookies.length; i++) {
+        if (isMatching(massivCookies[i].name, filter) || isMatching(massivCookies[i].value, filter)) {
+            var row = document.createElement('TR');
+            var td1 = document.createElement('TD');
+
+            td1.appendChild(document.createTextNode(massivCookies[i].name));
+
+            var td2 = document.createElement('TD');
+
+            td2.appendChild(document.createTextNode(massivCookies[i].value));
+
+            var td3 = document.createElement('TD');
+            var but = document.createElement('BUTTON');
+
+            but.appendChild(document.createTextNode('DELETE'));
+            but.setAttribute('coname', massivCookies[i].name);
+            but.addEventListener('click', function (e) {
+                deleteCookie(e.target.getAttribute('coname'));
+                clearTable();
+                fillTable('');
+            });
+            td3.appendChild(but);
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            listTable.appendChild(row);
+        }
+    }
+}
+filterNameInput.addEventListener('keyup', function () {
+    clearTable();
+    fillTable(this.value);
 });
 
 addButton.addEventListener('click', () => {
-
+    document.cookie = addNameInput.value + '=' + addValueInput.value;
+    clearTable();
+    fillTable(filterNameInput.value);
 });
+window.onload = () => {
+    clearTable();
+    fillTable('');
+}
