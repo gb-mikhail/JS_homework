@@ -22,7 +22,7 @@ let myModule = {
         plusButton.innerHTML = '+';
         friendDiv.setAttribute('id', friend.id);
         friendDiv.setAttribute('draggable', 'true');
-        friendDiv.setAttribute('ondragstart', 'dragStart');
+        friendDiv.setAttribute('ondragstart', 'return dragStart(event)');
 
         friends.appendChild(friendDiv);
         friendDiv.appendChild(friendPhoto);

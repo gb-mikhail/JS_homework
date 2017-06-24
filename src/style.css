@@ -157,3 +157,6 @@ hr {
 .friend-box__bottom-box_button:hover {
     background-color: #ef7e5e;
 }
+#friendsNewlist {
+    min-height: 200px;
+}
