@@ -2,8 +2,45 @@
 <html>
 <head>
   <meta charset="UTF-8">
+    <link rel="stylesheet" href="src/style.css">
   <title>{{htmlWebpackPlugin.options.title}}</title>
+
 </head>
-<body>
+<body id="mainbody">
+    <div class="main-container">
+        <div class="main-container__friend-box">
+            <div class="friend-box__top-box">
+                <h1 class="top-box_h1">
+                    Выбери друзей
+                </h1>
+            </div>
+            <div class="friend-box__search-box">
+                <input class="search-box_input" id="left-search-box_input" placeholder="Начните вводить имя друга">
+                <input class="search-box_input" id="right-search-box_input" placeholder="Начните вводить имя друга">
+            </div>
+            <div class="friend-box__central-box">
+                <div class="central-box__left-list">
+                    <div class="central-box__h3">
+                        Ваши друзья
+                    </div>
+                    <hr>
+                    <div id="friends" ondragenter="return dragEnter" ondrop="return dragDrop" ondragover="return dragOver"></div>
+                </div>
+                <div class="central-box__right-list">
+                        <div class="central-box__h3">
+                            Друзья в списке
+                        </div>
+                    <hr>
+                    <div id="friendsNewlist" ondragenter="return dragEnter" ondrop="return dragDrop" ondragover="return dragOver" ></div>
+                </div>
+            </div>
+            <div class="friend-box__bottom-box">
+                <button class="friend-box__bottom-box_button">
+                    Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
 </body>
 </html>
