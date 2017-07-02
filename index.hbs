@@ -46,21 +46,34 @@
     function dragStart(ev) {
         ev.dataTransfer.effectAllowed='move';
         ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
-        ev.dataTransfer.setDragImage(ev.target,100,100);
+        ev.dataTransfer.setDragImage(ev.target,100,30);
         return true;
     }
     function dragEnter(ev) {
         ev.preventDefault();
-        console.log('dragEnter');
         return true;
     }
     function dragOver(ev) {
         ev.preventDefault();
     }
     function dragDrop(ev) {
-        var data = ev.dataTransfer.getData("Text");
+        let data = ev.dataTransfer.getData("Text");
+        console.log();
         ev.target.appendChild(document.getElementById(data));
         ev.stopPropagation();
+        if (ev.target.id === 'friendsNewlist') {
+            let children = ev.target.children;
+            for (let i = 0; i < children.length; i++) {
+                children[i].lastChild.innerHTML = '-';
+                console.log(children[i]);
+                }
+            } else if (ev.target.id === 'friends') {
+            let children = ev.target.children;
+            console.log(children);
+            for (let i = 0; i < children.length; i++) {
+                children[i].lastChild.innerHTML = '+';
+            }
+            }
         return false;
     }
 </script>

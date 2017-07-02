@@ -106,22 +106,27 @@ let myModule = {
         button2.addEventListener('click', handler1);
 
         function handler1(e) {
+            let keyUp = new Event ('keyup', {
+                search: rightSearch.value = ''
+            });
+            rightSearch.dispatchEvent(keyUp);
 
             if (e.target.innerHTML === '+') {
                 let newTarget = e.target.parentNode;
                 button2.appendChild(newTarget);
                 e.target.innerHTML = '-';
-
                 for (let i = 0; i < self.friendsIdArr.length; i++) {
                     if (self.friendsIdArr[i].id == newTarget.id) {
                         self.rightFriendsArr.push(self.friendsIdArr[i]);
                         self.friendsIdArr.splice(i, 1);
-                        // console.log(self.rightFriendsArr, 'куда');
-                        // console.log(self.friendsIdArr, 'откуда');
                     }
                 }
-
             } else if (e.target.innerHTML === '-') {
+                let keyUp = new Event ('keyup', {
+                    search: leftSearch.value = ''
+                });
+                leftSearch.dispatchEvent(keyUp);
+
                 let newTarget = e.target.parentNode;
                 button.appendChild(newTarget);
                 e.target.innerHTML = '+';
@@ -129,12 +134,8 @@ let myModule = {
                     if (self.rightFriendsArr[i].id == newTarget.id) {
                         self.friendsIdArr.push(self.rightFriendsArr[i]);
                         self.rightFriendsArr.splice(i, 1);
-                        // console.log(self.rightFriendsArr, 'откуда');
-                        // console.log(self.friendsIdArr, 'куда');
                     }
                 }
-
-
             }
         }
     },
@@ -197,7 +198,7 @@ let myModule = {
             console.log('hellog');
             localStorage.setItem('local', self.friendsIdArr);
             localStorage.setItem('local2', self.rightFriendsArr);
-            // localStorage.clear();
+            localStorage.clear();
         })
     }
 };
