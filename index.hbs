@@ -1,9 +1,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>{{htmlWebpackPlugin.options.title}}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="src/style.css">
+    <title>{{htmlWebpackPlugin.options.title}}</title>
+
 </head>
-<body>
+<body id="mainbody">
+<<<<<<< HEAD
+<div class="main-container">
+    <div class="main-container__friend-box">
+        <div class="friend-box__top-box">
+            <h1 class="top-box_h1">
+                Выбери друзей
+            </h1>
+        </div>
+        <div class="friend-box__search-box">
+            <input class="search-box_input" id="left-search-box_input" placeholder="Начните вводить имя друга">
+            <input class="search-box_input" id="right-search-box_input" placeholder="Начните вводить имя друга">
+        </div>
+        <div class="friend-box__central-box">
+            <div class="central-box__left-list">
+                <div class="central-box__h3">
+                    Ваши друзья
+=======
+    <div class="main-container">
+        <div class="main-container__friend-box">
+            <div class="friend-box__top-box">
+                <h1 class="top-box_h1">
+                    Выбери друзей
+                </h1>
+            </div>
+            <div class="friend-box__search-box">
+                <input class="search-box_input" id="left-search-box_input" placeholder="Начните вводить имя друга">
+                <input class="search-box_input" id="right-search-box_input" placeholder="Начните вводить имя друга">
+            </div>
+            <div class="friend-box__central-box">
+                <div class="central-box__left-list">
+                    <div class="central-box__h3">
+                        Ваши друзья
+                    </div>
+                    <hr>
+                    <div id="friends" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)"></div>
+                </div>
+                <div class="central-box__right-list">
+                        <div class="central-box__h3">
+                            Друзья в списке
+                        </div>
+                    <hr>
+                    <div id="friendsNewlist" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)" ></div>
+>>>>>>> 2d004d17439b2c743fb1d448bf5d2499c4a80d6d
+                </div>
+                <hr>
+                <div id="friends" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)"
+                     ondragover="return dragOver(event)"></div>
+            </div>
+            <div class="central-box__right-list">
+                <div class="central-box__h3">
+                    Друзья в списке
+                </div>
+                <hr>
+                <div id="friendsNewlist" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)"
+                     ondragover="return dragOver(event)"></div>
+            </div>
+        </div>
+        <div class="friend-box__bottom-box">
+            <button class="friend-box__bottom-box_button">
+                Сохранить
+            </button>
+        </div>
+    </div>
+<<<<<<< HEAD
+</div>
+<script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function dragStart(ev) {
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+        ev.dataTransfer.setDragImage(ev.target, 150, 50);
+        return true;
+    }
+
+    function dragEnter(ev) {
+        ev.preventDefault();
+        return true;
+    }
+    function dragOver(ev) {
+        ev.preventDefault();
+    }
+
+    function dragDrop(ev) {
+        let data = ev.dataTransfer.getData("Text");
+        ev.target.appendChild(document.getElementById(data));
+        //        if написать функции проверки куда добавляется ev.target ... тут будет 2 if
+        ev.stopPropagation();
+        if (ev.target.id === 'friendsNewlist') {
+            let children = ev.target.children;
+            for (let i = 0; i < children.length; i++) {
+                children[i].lastChild.innerHTML = '-';
+                console.log(children[i].parentNode.id);
+            }
+        } else if (ev.target.id === 'friends') {
+            let children = ev.target.children;
+            console.log(children);
+            for (let i = 0; i < children.length; i++) {
+                children[i].lastChild.innerHTML = '+';
+            }
+        }
+        return false;
+    }
+</script>
+=======
+    <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function dragStart(ev) {
+            ev.dataTransfer.effectAllowed='move';
+            ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+            ev.dataTransfer.setDragImage(ev.target,100,100);
+            return true;
+        }
+
+        function dragEnter(ev) {
+            ev.preventDefault();
+            console.log('dragEnter');
+            return true;
+
+        }
+
+        function dragOver(ev) {
+            ev.preventDefault();
+        }
+
+        function dragDrop(ev) {
+            var data = ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(data));
+            ev.stopPropagation();
+            return false;
+        }
+    </script>
+>>>>>>> 2d004d17439b2c743fb1d448bf5d2499c4a80d6d
 </body>
 </html>
