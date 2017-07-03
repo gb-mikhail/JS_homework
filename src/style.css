@@ -122,6 +122,10 @@ hr {
     min-height: 400px;
 }
 
+#friends {
+    min-height: 400px;
+}
+
 .central-box__friend_button {
     font-size: 30px;
     font-weight: 800;
@@ -161,7 +165,4 @@ hr {
 
 .friend-box__bottom-box_button:hover {
     background-color: #ef7e5e;
-}
-#friendsNewlist {
-    min-height: 200px;
 }

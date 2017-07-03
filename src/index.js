@@ -5,6 +5,7 @@ let myModule = {
         this.setListeners();
         this.search();
         this.saveButton();
+        window.myModule = this;
     },
     friendsIdArr: [],
     rightFriendsArr: [],
@@ -68,9 +69,17 @@ let myModule = {
     },
     getFriends: function () {
         console.log('getFriends 3');
-        let self = this;
-        return new Promise(function (resolve, reject) {
-            //условие в котором мы проводим проверку из локал сторедж, и либо берем друзей оттуда, либо запускаем АPI
+        if (localStorage.getItem('local') && localStorage.getItem('local2')) {
+            //Код для работы с локалсторэдж
+            console.log(localStorage.getItem('local'));
+            console.log(localStorage.getItem('local2'));
+
+            let local = localStorage.getItem('local');
+            let local2 = localStorage.getItem('local2');
+
+        } else {
+            let self = this;
+            return new Promise(function (resolve, reject) {
                 VK.api('friends.get', {v: '5.64', order: 'name', fields: 'photo_50'}, function (response) {
                     if (response.error) {
                         reject(new Error(response.error.error_msg));
@@ -78,20 +87,14 @@ let myModule = {
                         resolve(response);
                     }
                 })
-        })
-            .then(function (response) {
-                if (localStorage.length == 0) {
+            })
+                .then(function (response) {
                     response.response.items.forEach(friend => {
                         self.renderFriend(friend);
                         self.friendsIdArr.push(friend);
                     });
-                } else {
-                    console.log('localStor');
-                    localStorage.getItem('local');
-                    localStorage.getItem('local2')
-                }
-            })
-
+                })
+        }
     },
     setListeners: function () {
         let self = this;
@@ -106,7 +109,7 @@ let myModule = {
         button2.addEventListener('click', handler1);
 
         function handler1(e) {
-            let keyUp = new Event ('keyup', {
+            let keyUp = new Event('keyup', {
                 search: rightSearch.value = ''
             });
             rightSearch.dispatchEvent(keyUp);
@@ -122,7 +125,7 @@ let myModule = {
                     }
                 }
             } else if (e.target.innerHTML === '-') {
-                let keyUp = new Event ('keyup', {
+                let keyUp = new Event('keyup', {
                     search: leftSearch.value = ''
                 });
                 leftSearch.dispatchEvent(keyUp);
@@ -190,17 +193,18 @@ let myModule = {
         }
     },
     saveButton: function () {
-        let  self = this;
+        let self = this;
 
         let button = document.querySelector('.friend-box__bottom-box_button');
 
         button.addEventListener('click', function (e) {
-            console.log('hellog');
+            console.log(self.rightFriendsArr);
+            console.log(self.friendsIdArr);
             localStorage.setItem('local', self.friendsIdArr);
             localStorage.setItem('local2', self.rightFriendsArr);
             localStorage.clear();
         })
-    }
+    },
 };
 
 window.onload = myModule.init();
