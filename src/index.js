@@ -5,6 +5,7 @@ let myModule = {
         this.setListeners();
         this.search();
         this.saveButton();
+        this.resetButton();
         window.myModule = this;
     },
     friendsIdArr: [],
@@ -69,13 +70,33 @@ let myModule = {
     },
     getFriends: function () {
         console.log('getFriends 3');
-        if (localStorage.getItem('local') && localStorage.getItem('local2')) {
+        if (localStorage.getItem('leftLocalArr') && localStorage.getItem('rightLocalArr')) {
             //Код для работы с локалсторэдж
-            console.log(localStorage.getItem('local'));
-            console.log(localStorage.getItem('local2'));
+            let leftArr = JSON.parse(localStorage.getItem('leftLocalArr'));
+            let rightArr = JSON.parse(localStorage.getItem('rightLocalArr'));
 
-            let local = localStorage.getItem('local');
-            let local2 = localStorage.getItem('local2');
+            let mainLeftArr = this.friendsIdArr;
+            let mainRightArr = this.rightFriendsArr;
+
+            for (let i = 0; i <leftArr.length; i++) {
+                mainLeftArr.push(leftArr[i])
+            }
+            for (let i = 0; i <rightArr.length; i++) {
+                mainRightArr.push(rightArr[i])
+            }
+            // console.log(leftArr, 'left');
+            // console.log(rightArr, 'right');
+            //
+            // console.log(this.friendsIdArr, 'this.left');
+            // console.log(this.rightFriendsArr, 'this.right');
+
+            leftArr.forEach(friend => {
+                this.renderFriend(friend);
+            });
+            rightArr.forEach(friend => {
+                this.renderFriend2(friend);
+            });
+
 
         } else {
             let self = this;
@@ -109,12 +130,12 @@ let myModule = {
         button2.addEventListener('click', handler1);
 
         function handler1(e) {
-            let keyUp = new Event('keyup', {
-                search: rightSearch.value = ''
-            });
-            rightSearch.dispatchEvent(keyUp);
-
             if (e.target.innerHTML === '+') {
+                let keyUp = new Event('keyup', {
+                    search: rightSearch.value = ''
+                });
+                rightSearch.dispatchEvent(keyUp);
+
                 let newTarget = e.target.parentNode;
                 button2.appendChild(newTarget);
                 e.target.innerHTML = '-';
@@ -122,6 +143,9 @@ let myModule = {
                     if (self.friendsIdArr[i].id == newTarget.id) {
                         self.rightFriendsArr.push(self.friendsIdArr[i]);
                         self.friendsIdArr.splice(i, 1);
+
+                        console.log(self.rightFriendsArr);
+                        console.log(self.friendsIdArr);
                     }
                 }
             } else if (e.target.innerHTML === '-') {
@@ -137,6 +161,9 @@ let myModule = {
                     if (self.rightFriendsArr[i].id == newTarget.id) {
                         self.friendsIdArr.push(self.rightFriendsArr[i]);
                         self.rightFriendsArr.splice(i, 1);
+
+                        console.log(self.rightFriendsArr);
+                        console.log(self.friendsIdArr);
                     }
                 }
             }
@@ -198,10 +225,22 @@ let myModule = {
         let button = document.querySelector('.friend-box__bottom-box_button');
 
         button.addEventListener('click', function (e) {
-            console.log(self.rightFriendsArr);
-            console.log(self.friendsIdArr);
-            localStorage.setItem('local', self.friendsIdArr);
-            localStorage.setItem('local2', self.rightFriendsArr);
+
+            let leftArr = self.friendsIdArr;
+            let obj2 = JSON.stringify(leftArr);
+            localStorage.setItem('leftLocalArr', obj2);
+
+            let rightArr = self.rightFriendsArr;
+            let obj = JSON.stringify(rightArr);
+            localStorage.setItem('rightLocalArr', obj);
+            
+        })
+    },
+    resetButton: function () {
+
+        let button = document.querySelector('.friend-box__bottom-box_button-reset');
+
+        button.addEventListener('click', function (e) {
             localStorage.clear();
         })
     },

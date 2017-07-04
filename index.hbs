@@ -37,9 +37,13 @@
             </div>
         </div>
         <div class="friend-box__bottom-box">
+            <button class="friend-box__bottom-box_button-reset">
+                Сбросить
+            </button>
             <button class="friend-box__bottom-box_button">
                 Сохранить
             </button>
+
         </div>
     </div>
 </div>
@@ -61,11 +65,18 @@
     function dragDrop(ev) {
         let data = ev.dataTransfer.getData("Text");
         let children = ev.target.children;
-        let childrenArr = [];
+        let rightSearch = document.getElementById('right-search-box_input');
+        let leftSearch = document.getElementById('left-search-box_input');
+
         ev.target.appendChild(document.getElementById(data));
         ev.stopPropagation();
 
         if (ev.target.id === 'friendsNewlist') {
+//            let keyUp = new Event('keyup', {
+//                search: rightSearch.value = ''
+//            });
+//            rightSearch.dispatchEvent(keyUp);
+//
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '-';
                 let childrenI = children[i];
@@ -77,6 +88,11 @@
                 }
             }
         } else if (ev.target.id === 'friends') {
+//            let keyUp = new Event('keyup', {
+//                search: leftSearch.value = ''
+//            });
+//            leftSearch.dispatchEvent(keyUp);
+//
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '+';
                 let childrenI = children[i];

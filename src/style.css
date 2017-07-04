@@ -163,6 +163,22 @@ hr {
     cursor: pointer;
 }
 
+.friend-box__bottom-box_button-reset {
+    width: 120px;
+    height: 32px;
+    margin-right: 16px;
+    background-color: #6e66ff;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 .friend-box__bottom-box_button:hover {
     background-color: #ef7e5e;
+}
+
+.friend-box__bottom-box_button-reset:hover {
+    background-color: #6358ff;
 }
