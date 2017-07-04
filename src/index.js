@@ -12,10 +12,10 @@ let myModule = {
     rightFriendsArr: [],
     renderFriend: function (friend) {
         console.log('renderFriend 1');
-        let friendDiv = document.createElement('div');
+        let friendDiv   = document.createElement('div');
         let friendPhoto = new Image();
-        let friendName = document.createElement('div');
-        let plusButton = document.createElement('a');
+        let friendName  = document.createElement('div');
+        let plusButton  = document.createElement('a');
 
         friendDiv.classList.add('central-box__friend');
         friendPhoto.src = friend.photo_50;
@@ -34,10 +34,10 @@ let myModule = {
         friendDiv.appendChild(plusButton);
     },
     renderFriend2: function (friend) {
-        let friendDiv = document.createElement('div');
+        let friendDiv   = document.createElement('div');
         let friendPhoto = new Image();
-        let friendName = document.createElement('div');
-        let plusButton = document.createElement('a');
+        let friendName  = document.createElement('div');
+        let plusButton  = document.createElement('a');
 
         friendDiv.classList.add('central-box__friend');
         friendPhoto.src = friend.photo_50;
@@ -71,11 +71,9 @@ let myModule = {
     getFriends: function () {
         console.log('getFriends 3');
         if (localStorage.getItem('leftLocalArr') && localStorage.getItem('rightLocalArr')) {
-            //Код для работы с локалсторэдж
-            let leftArr = JSON.parse(localStorage.getItem('leftLocalArr'));
-            let rightArr = JSON.parse(localStorage.getItem('rightLocalArr'));
-
-            let mainLeftArr = this.friendsIdArr;
+            let leftArr      = JSON.parse(localStorage.getItem('leftLocalArr'));
+            let rightArr     = JSON.parse(localStorage.getItem('rightLocalArr'));
+            let mainLeftArr  = this.friendsIdArr;
             let mainRightArr = this.rightFriendsArr;
 
             for (let i = 0; i <leftArr.length; i++) {
@@ -84,11 +82,6 @@ let myModule = {
             for (let i = 0; i <rightArr.length; i++) {
                 mainRightArr.push(rightArr[i])
             }
-            // console.log(leftArr, 'left');
-            // console.log(rightArr, 'right');
-            //
-            // console.log(this.friendsIdArr, 'this.left');
-            // console.log(this.rightFriendsArr, 'this.right');
 
             leftArr.forEach(friend => {
                 this.renderFriend(friend);
@@ -121,10 +114,10 @@ let myModule = {
         let self = this;
         console.log('setListeners 4');
 
-        let button = document.getElementById('friends');
-        let button2 = document.getElementById('friendsNewlist');
+        let button      = document.getElementById('friends');
+        let button2     = document.getElementById('friendsNewlist');
         let rightSearch = document.getElementById('right-search-box_input');
-        let leftSearch = document.getElementById('left-search-box_input');
+        let leftSearch  = document.getElementById('left-search-box_input');
 
         button.addEventListener('click', handler1);
         button2.addEventListener('click', handler1);
@@ -171,7 +164,7 @@ let myModule = {
     },
     search: function () {
         console.log('search 5');
-        let leftSearchInput = document.getElementById('left-search-box_input');
+        let leftSearchInput  = document.getElementById('left-search-box_input');
         let rightSearchInput = document.getElementById('right-search-box_input');
 
         function clearList() {
@@ -220,24 +213,21 @@ let myModule = {
         }
     },
     saveButton: function () {
-        let self = this;
-
+        let self   = this;
         let button = document.querySelector('.friend-box__bottom-box_button');
 
         button.addEventListener('click', function (e) {
-
-            let leftArr = self.friendsIdArr;
-            let obj2 = JSON.stringify(leftArr);
-            localStorage.setItem('leftLocalArr', obj2);
-
+            let leftArr  = self.friendsIdArr;
+            let obj2     = JSON.stringify(leftArr);
             let rightArr = self.rightFriendsArr;
-            let obj = JSON.stringify(rightArr);
+            let obj      = JSON.stringify(rightArr);
+
+            localStorage.setItem('leftLocalArr', obj2);
             localStorage.setItem('rightLocalArr', obj);
-            
+
         })
     },
     resetButton: function () {
-
         let button = document.querySelector('.friend-box__bottom-box_button-reset');
 
         button.addEventListener('click', function (e) {

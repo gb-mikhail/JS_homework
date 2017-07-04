@@ -63,23 +63,19 @@
         ev.preventDefault();
     }
     function dragDrop(ev) {
-        let data = ev.dataTransfer.getData("Text");
-        let children = ev.target.children;
+        let data        = ev.dataTransfer.getData("Text");
+        let children    = ev.target.children;
         let rightSearch = document.getElementById('right-search-box_input');
-        let leftSearch = document.getElementById('left-search-box_input');
+        let leftSearch  = document.getElementById('left-search-box_input');
 
         ev.target.appendChild(document.getElementById(data));
         ev.stopPropagation();
 
         if (ev.target.id === 'friendsNewlist') {
-//            let keyUp = new Event('keyup', {
-//                search: rightSearch.value = ''
-//            });
-//            rightSearch.dispatchEvent(keyUp);
-//
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '-';
                 let childrenI = children[i];
+
                 for (let i = 0; i < myModule.friendsIdArr.length; i++) {
                     if (myModule.friendsIdArr[i].id == childrenI.id) {
                         myModule.rightFriendsArr.push(myModule.friendsIdArr[i]);
@@ -88,11 +84,6 @@
                 }
             }
         } else if (ev.target.id === 'friends') {
-//            let keyUp = new Event('keyup', {
-//                search: leftSearch.value = ''
-//            });
-//            leftSearch.dispatchEvent(keyUp);
-//
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '+';
                 let childrenI = children[i];
@@ -105,9 +96,19 @@
                 }
             }
         }
+        function searchSide (side) {
+            let keyUp = new Event('keyup', {
+                search: side.value = ''
+            });
+            side.dispatchEvent(keyUp);
+        }
+        if (ev.target.id === 'friendsNewlist') {
+            searchSide(rightSearch);
+        } else if (ev.target.id === 'friends') {
+            searchSide(leftSearch);
+        }
         return false;
     }
-
 </script>
 </body>
 </html>
