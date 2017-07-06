@@ -67,11 +67,14 @@
         let children    = ev.target.children;
         let rightSearch = document.getElementById('right-search-box_input');
         let leftSearch  = document.getElementById('left-search-box_input');
-
-        ev.target.appendChild(document.getElementById(data));
-        ev.stopPropagation();
-
+        
         if (ev.target.id === 'friendsNewlist') {
+            ev.target.appendChild(document.getElementById(data));
+            if (document.getElementById(data).parentNode.id == 'friendsNewlist') {
+                ev.target.appendChild(document.getElementById(data));
+                console.log(document.getElementById(data).parentNode.id);
+            }
+
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '-';
                 let childrenI = children[i];
@@ -107,6 +110,7 @@
         } else if (ev.target.id === 'friends') {
             searchSide(leftSearch);
         }
+        ev.stopPropagation();
         return false;
     }
 </script>
