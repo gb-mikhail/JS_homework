@@ -67,7 +67,10 @@
         let children    = ev.target.children;
         let rightSearch = document.getElementById('right-search-box_input');
         let leftSearch  = document.getElementById('left-search-box_input');
-        
+        console.log(ev)
+        if( ev.target.parentNode.id === 'friendsNewlist') {
+            ev.target.parentNode.appendChild(document.getElementById(data));
+        }
         if (ev.target.id === 'friendsNewlist') {
             ev.target.appendChild(document.getElementById(data));
             if (document.getElementById(data).parentNode.id == 'friendsNewlist') {
