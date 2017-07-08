@@ -63,21 +63,18 @@
         ev.preventDefault();
     }
     function dragDrop(ev) {
-        let data        = ev.dataTransfer.getData("Text");
-        let children    = ev.target.children;
+        let data = ev.dataTransfer.getData("Text");
+        let children = ev.target.children;
+        let children2 = ev.target.parentNode.children;
         let rightSearch = document.getElementById('right-search-box_input');
-        let leftSearch  = document.getElementById('left-search-box_input');
-        
-        if (ev.target.id === 'friendsNewlist') {
-            ev.target.appendChild(document.getElementById(data));
-            if (document.getElementById(data).parentNode.id == 'friendsNewlist') {
-                ev.target.appendChild(document.getElementById(data));
-                console.log(document.getElementById(data).parentNode.id);
-            }
+        let leftSearch = document.getElementById('left-search-box_input');
 
-            for (let i = 0; i < children.length; i++) {
-                children[i].lastChild.innerHTML = '-';
-                let childrenI = children[i];
+        if (ev.target.parentNode.id === 'friendsNewlist') {
+            ev.target.parentNode.appendChild(document.getElementById(data));
+
+            for (let i = 0; i < children2.length; i++) {
+                document.getElementById(data).lastChild.innerHTML = '-';
+                let childrenI = children2[i];
 
                 for (let i = 0; i < myModule.friendsIdArr.length; i++) {
                     if (myModule.friendsIdArr[i].id == childrenI.id) {
@@ -86,7 +83,42 @@
                     }
                 }
             }
-        } else if (ev.target.id === 'friends') {
+        } // добавление друзей в любое место
+        if (ev.target.id === 'friendsNewlist') {
+            ev.target.appendChild(document.getElementById(data));
+
+            for (let i = 0; i < children.length; i++) {
+                children[i].lastChild.innerHTML = '-';
+                let childrenI = children[i];
+                console.log(childrenI.id);
+
+                for (let i = 0; i < myModule.friendsIdArr.length; i++) {
+                    if (myModule.friendsIdArr[i].id == childrenI.id) {
+                        myModule.rightFriendsArr.push(myModule.friendsIdArr[i]);
+                        myModule.friendsIdArr.splice(i, 1);
+                    }
+                }
+            }
+        } // добавление друзей в список
+
+        if (ev.target.parentNode.id === 'friends') {
+            ev.target.parentNode.appendChild(document.getElementById(data));
+
+            for (let i = 0; i < children2.length; i++) {
+                document.getElementById(data).lastChild.innerHTML = '+';
+                let childrenI = children2[i];
+
+                for (let i = 0; i < myModule.rightFriendsArr.length; i++) {
+                    if (myModule.rightFriendsArr[i].id == childrenI.id) {
+                        myModule.friendsIdArr.push(myModule.rightFriendsArr[i]);
+                        myModule.rightFriendsArr.splice(i, 1);
+                    }
+                }
+            }
+        }// возврат друзей в любое место
+        if (ev.target.id === 'friends') {
+            ev.target.appendChild(document.getElementById(data));
+
             for (let i = 0; i < children.length; i++) {
                 children[i].lastChild.innerHTML = '+';
                 let childrenI = children[i];
@@ -98,18 +130,23 @@
                     }
                 }
             }
-        }
-        function searchSide (side) {
+        }// возврат друзей в список
+
+        function searchSide(side) {
             let keyUp = new Event('keyup', {
                 search: side.value = ''
             });
             side.dispatchEvent(keyUp);
         }
-        if (ev.target.id === 'friendsNewlist') {
+
+        if (ev.target.id || ev.target.parentNode.id === 'friendsNewlist') {
             searchSide(rightSearch);
-        } else if (ev.target.id === 'friends') {
+        }
+        
+        if (ev.target.id || ev.target.parentNode.id === 'friends') {
             searchSide(leftSearch);
         }
+
         ev.stopPropagation();
         return false;
     }
