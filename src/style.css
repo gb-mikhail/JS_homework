@@ -122,6 +122,10 @@ hr {
     min-height: 400px;
 }
 
+#friends {
+    min-height: 400px;
+}
+
 .central-box__friend_button {
     font-size: 30px;
     font-weight: 800;
@@ -159,9 +163,22 @@ hr {
     cursor: pointer;
 }
 
+.friend-box__bottom-box_button-reset {
+    width: 120px;
+    height: 32px;
+    margin-right: 16px;
+    background-color: #6e66ff;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 .friend-box__bottom-box_button:hover {
     background-color: #ef7e5e;
 }
-#friendsNewlist {
-    min-height: 200px;
+
+.friend-box__bottom-box_button-reset:hover {
+    background-color: #6358ff;
 }
