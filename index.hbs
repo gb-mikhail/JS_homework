@@ -67,6 +67,7 @@
         let children = ev.target.children;
         let children2 = ev.target.parentNode.children;
         let rightSearch = document.getElementById('right-search-box_input');
+<<<<<<< HEAD
         let leftSearch = document.getElementById('left-search-box_input');
 
         if (ev.target.parentNode.id === 'friendsNewlist') {
@@ -84,6 +85,13 @@
                 }
             }
         } // добавление друзей в любое место
+=======
+        let leftSearch  = document.getElementById('left-search-box_input');
+        console.log(ev)
+        if( ev.target.parentNode.id === 'friendsNewlist') {
+            ev.target.parentNode.appendChild(document.getElementById(data));
+        }
+>>>>>>> dc248c39ae9c2b478fd240b62185af2254f5a77b
         if (ev.target.id === 'friendsNewlist') {
             ev.target.appendChild(document.getElementById(data));
 
