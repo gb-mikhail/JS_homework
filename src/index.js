@@ -11,7 +11,6 @@ let myModule = {
     friendsIdArr: [],
     rightFriendsArr: [],
     renderFriend: function (friend, buttonValue, listId) {
-        console.log('renderFriend 1');
         let friendDiv = document.createElement('div');
         let friendPhoto = new Image();
         let friendName = document.createElement('div');
@@ -34,7 +33,6 @@ let myModule = {
         friendDiv.appendChild(plusButton);
     },
     apiInit: function () {
-        console.log('apiInit 2');
         VK.init({
             apiId: 6074753
         });
@@ -47,7 +45,7 @@ let myModule = {
         }, 2);
     },
     getFriends: function () {
-        console.log('getFriends 3');
+
         if (localStorage.getItem('leftLocalArr') && localStorage.getItem('rightLocalArr')) {
             let leftArr = JSON.parse(localStorage.getItem('leftLocalArr'));
             let rightArr = JSON.parse(localStorage.getItem('rightLocalArr'));
@@ -89,7 +87,6 @@ let myModule = {
     },
     setListeners: function () {
         let self = this;
-        console.log('setListeners 4');
 
         let button = document.getElementById('friends');
         let button2 = document.getElementById('friendsNewlist');
@@ -133,7 +130,7 @@ let myModule = {
         }
     },
     search: function () {
-        console.log('search 5');
+
         let leftSearchInput  = document.getElementById('left-search-box_input');
         let rightSearchInput = document.getElementById('right-search-box_input');
         let leftFriendsList  = document.getElementById('friends');
